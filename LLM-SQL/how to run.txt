@@ -1,0 +1,35 @@
+1. python3 -m venv venv
+2. join environment venv - source /workspaces/LLM-SQL/LLM-SQL/venv/bin/activate
+3. pip install -r requirements.txt
+4. streamlit run app.py
+
+ERROR:
+in case of "Database Response: SQL Error: could not connect to server: Connection timed out Is the server running on host "10.5.18.72" and accepting TCP/IP connections on port 5432?"
+i.e, for postgres in codespaces.
+ 1. sudo apt update
+ 2. sudo apt install postgresql postgresql-contrib -y
+ 3. sudo service postgresql start
+
+Allow Remote Connections in pg_hba.conf
+ 1. Open the pg_hba.conf file:       sudo nano /etc/postgresql/12/main/pg_hba.conf
+ 2. Add the following lines at the bottom to allow all IP addresses:
+        host    all             all             0.0.0.0/0               md5
+        host    all             all                                     md5
+        local   all   postgres   trust
+
+ 3. Save and exit (CTRL + X, then Y, then ENTER).
+
+Change postgresql.conf to Listen on All Addresses
+ 1. Open the configuration file:  sudo nano /etc/postgresql/12/main/postgresql.conf
+ 2. Find the line:   listen_addresses = 'localhost'
+ 3. Change it to:    listen_addresses = '*'
+ 4. Save and exit (CTRL + X, then Y, then ENTER).
+
+Restart PostgreSQL to Apply Changes
+    sudo service postgresql restart
+
+
+sudo su - postgres
+rm: cannot remove '/usr/local/share/nvm/current': Permission denied
+postgres@codespaces-97a23f:/workspaces/LLM-SQL$ psql
+
